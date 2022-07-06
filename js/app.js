@@ -12,6 +12,7 @@ let image3; // an image element
 let allOddDuckProductsArray; //an array of duck products
 let click=0; // the number of the user clicks
 let maxClicksAllowed= 25; // the maximum number of clicks
+let viewButton;
 
 /**
  * odd duck products Objects (data/ model objects
@@ -21,7 +22,7 @@ let maxClicksAllowed= 25; // the maximum number of clicks
 function OddDuckProducts(name, src) {
   this.name= name;
   this.src= src;
-  this.view= 0;
+  this.views= 0;
   this.clicks= 0;
 }
 /**
@@ -64,11 +65,12 @@ allOddDuckProductsArray [oddDuckProducts3].views++;
  */
 function renderResults() {
   console.log(`in renderResults()`);
-  let ul= document.querySelector(ul);
+  let ul= document.querySelector("ul");
   for(let i=0; i<allOddDuckProductsArray.length; i++){
     let oddDuckProducts= allOddDuckProductsArray[i];
     let li= document.createElement("li");
-    li.textContent= `${oddDuckProducts.name} had ${oddDuckProducts.views} views and was clicked ${oddDuckProducts.clicks} times`
+    li.textContent= `${oddDuckProducts.name} had ${oddDuckProducts.views} views and was clicked ${oddDuckProducts.clicks} times`;
+    ul.appendChild(li);
   }
 }
 
@@ -84,6 +86,7 @@ function initialize() {
   image1= document.querySelector("section img:first-child");
   image2= document.querySelector("section img:nth-child(2)");
   image3= document.querySelector("section img:nth-child(3)");
+  viewButton=document.getElementById("viewButton");
 
   // instantiate duck products
   allOddDuckProductsArray= [];
@@ -137,9 +140,7 @@ function handleOddDuckProductsClick(evt) {
     //remove the event listener
     oddDuckProductsContainer.removeEventListener("click", handleOddDuckProductsClick);
     //enable the display button
-    resultButton.addEventListener("click", renderResults);
-    resultButton.className= "clicks-allowed";
-    oddDuckProductsContainer.className= "no-voting";
+    viewButton.addEventListener("click", renderResults);;
   } else {
     render();
   }
