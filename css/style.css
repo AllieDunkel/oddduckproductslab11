@@ -12,15 +12,13 @@ main {
   width: 960px;
   margin: 5rem auto;
   display: grid;
-  grid-template-columns: 250px 4fr;
+  grid-template-columns: 250px;
   grid-template-rows: 6.5rem 10rem 20rem 40%;
 }
 
 h1 {
   font-size: 5rem;
   color: black;
-  line-height: .8;
-  /* margin: 5rem 0 1rem; */
   font-size: 60px;
   grid-row-start: 1;
   grid-row-end: 3;
@@ -51,7 +49,7 @@ section img:hover {
   border: 5px solid black;
   cursor: pointer;
 }
-/* once voting ends */
+
 section.no-voting img:hover {
   border: 5px solid transparent;
   cursor: none;
