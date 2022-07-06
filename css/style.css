@@ -64,8 +64,7 @@ li {
   margin: .5rem;
 }
 
-/* -- button -- */
-section + div {
+button{
   background-color: darkgrey;
   color: whitesmoke;
   padding: .5rem 1rem;
