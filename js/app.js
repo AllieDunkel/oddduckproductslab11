@@ -90,6 +90,7 @@ image3.alt = allOddDuckProductsArray[currentSet[2]].name;
 allOddDuckProductsArray [currentSet[0]].views++;
 allOddDuckProductsArray [currentSet[1]].views++;
 allOddDuckProductsArray [currentSet[2]].views++;
+localStorage.setItem("products", JSON.stringify({"data": allOddDuckProductsArray}));
 }
 
 /**
@@ -119,6 +120,8 @@ function renderChart(){
     oddDuckProductsClicks.push(allOddDuckProductsArray[i].clicks);
     oddDuckProductsViews.push(allOddDuckProductsArray[i].views);
   }
+
+
   /*** Definining the data so it fits JSON chart format
    *
    */
@@ -149,13 +152,16 @@ function renderChart(){
     type:'bar',
     data: oddDuckProductsData,
     options:{
+        legend: {
+          position: "bottom"
+        }
+      },
       scales:{
         y:{
           beginAtZero: true,
         },
       },
-    },
-  };
+  }
   // reference the canvas element in html
   let canvasChart = document.getElementById('myChart');
   // draw chart
@@ -179,6 +185,8 @@ function initialize() {
   viewButton=document.getElementById("viewButton");
 
   // instantiate duck products
+  let result=localStorage.getItem("products");
+  if (result===null) {
   allOddDuckProductsArray= [];
   allOddDuckProductsArray.push(new OddDuckProducts("bag", "./images/bag.jpg"));
   allOddDuckProductsArray.push(new OddDuckProducts("banana", "./images/banana.jpg"));
@@ -198,6 +206,10 @@ function initialize() {
   allOddDuckProductsArray.push(new OddDuckProducts("unicorn", "./images/unicorn.jpg"));
   allOddDuckProductsArray.push(new OddDuckProducts("water-can", "./images/water-can.jpg"));
   allOddDuckProductsArray.push(new OddDuckProducts("wine-glass", "./images/wine-glass.jpg"));
+  localStorage.setItem("products", JSON.stringify({"data":allOddDuckProductsArray}));
+  } else {
+    allOddDuckProductsArray=JSON.parse(result).data;
+  }
 
   //set any event handlers 
 
