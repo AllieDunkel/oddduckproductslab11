@@ -84,31 +84,31 @@ function renderResults() {
 
 function renderChart(){
   console.log('in renderChart()');
-  let productsNames=[];
-  let productsClicks=[];
-  let productsViews=[];
+  let oddDuckProductsNames=[];
+  let oddDuckProductsClicks=[];
+  let oddDuckProductsViews=[];
   for (let i =0; i < allOddDuckProductsArray. length; i++){
-    productsNames.push(allOddDuckProductsArray[i].productName);
-    productsClicks.push(allOddDuckProductsArray[i].clicks);
-    productsViews.push(allOddDuckProductsArray[i].views);
+    oddDuckProductsNames.push(allOddDuckProductsArray[i].names);
+    oddDuckProductsClicks.push(allOddDuckProductsArray[i].clicks);
+    oddDuckProductsViews.push(allOddDuckProductsArray[i].views);
   }
   /*** Definining the data so it fits JSON chart format
    *
    */
-  const Productdata=
+  const oddDuckProductsData=
   {
-    labels:productsNames,
+    labels: oddDuckProductsNames,
     datasets:[
       {
         label:'Clicks',
-        data:productsClicks,
+        data: oddDuckProductsClicks,
         backgroundColor:['rgba(255,99,132,0.5)'],
         borderColor:['rgb(255,99,132)'],
         borderWidth:1,
       },
       {
         label:'Views',
-        data: productsViews,
+        data: oddDuckProductsViews,
         backgroundColor:['rgba(255,99,132,0.5)'],
         borderColor:['rgb(255,99,132)'],
         borderWidth:1,
@@ -120,7 +120,7 @@ function renderChart(){
   // configuring graph
   const config ={
     type:'bar',
-    data:Productdata,
+    data: oddDuckProductsData,
     options:{
       scales:{
         y:{
