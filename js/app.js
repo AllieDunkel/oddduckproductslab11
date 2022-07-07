@@ -79,6 +79,64 @@ function renderResults() {
   }
 }
 
+
+
+
+function renderChart(){
+  console.log('in renderChart()');
+  let productsNames=[];
+  let productsClicks=[];
+  let productsViews=[];
+  for (let i =0; i < allOddDuckProductsArray. length; i++){
+    productsNames.push(allOddDuckProductsArray[i].productName);
+    productsClicks.push(allOddDuckProductsArray[i].clicks);
+    productsViews.push(allOddDuckProductsArray[i].views);
+  }
+  /*** Definining the data so it fits JSON chart format
+   *
+   */
+  const Productdata=
+  {
+    labels:productsNames,
+    datasets:[
+      {
+        label:'Clicks',
+        data:productsClicks,
+        backgroundColor:['rgba(255,99,132,0.5)'],
+        borderColor:['rgb(255,99,132)'],
+        borderWidth:1,
+      },
+      {
+        label:'Views',
+        data: productsViews,
+        backgroundColor:['rgba(255,99,132,0.5)'],
+        borderColor:['rgb(255,99,132)'],
+        borderWidth:1,
+
+
+      },
+    ],
+  };
+  // configuring graph
+  const config ={
+    type:'bar',
+    data:Productdata,
+    options:{
+      scales:{
+        y:{
+          beginAtZero: true,
+        },
+      },
+    },
+  };
+  // reference the canvas element in html
+  let canvasChart = document.getElementById('myChart');
+  // draw chart
+  const myChart = new Chart(canvasChart,config);
+}
+
+
+
 /**
  * control logic
  * initialize the global variable, set up needed event handlers, and perform the intial render
@@ -143,7 +201,8 @@ function handleOddDuckProductsClick(evt) {
     //remove the event listener
     oddDuckProductsContainer.removeEventListener("click", handleOddDuckProductsClick);
     //enable the display button
-    viewButton.addEventListener("click", renderResults);;
+    viewButton.addEventListener("click", renderResults);
+    renderChart();
   } else {
     render();
   }
