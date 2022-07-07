@@ -9,10 +9,13 @@ let resultButton; // a button to show results
 let image1; // an image element
 let image2; //an image element
 let image3; // an image element
-let allOddDuckProductsArray; //an array of duck products
+let allOddDuckProductsArray=[]; //an array of duck products
 let click=0; // the number of the user clicks
 let maxClicksAllowed= 25; // the maximum number of clicks
 let viewButton;
+let previousSet = [];
+let currentSet= [];
+let oddDuckProducts;
 
 /**
  * odd duck products Objects (data/ model objects
@@ -33,31 +36,33 @@ function OddDuckProducts(name, src) {
 
 function render() {
   //get three random duck products 
-  let oddDuckProducts1= getRandomOddDuckProductsIndex(); 
-  let oddDuckProducts2= getRandomOddDuckProductsIndex(); 
-  let oddDuckProducts3= getRandomOddDuckProductsIndex(); 
-  // make sure its not the same duck product
-  while(oddDuckProducts1===oddDuckProducts2 || oddDuckProducts1===oddDuckProducts3){
-    oddDuckProducts1=getRandomOddDuckProductsIndex();
-  }
-  while(oddDuckProducts1===oddDuckProducts2 || oddDuckProducts2===oddDuckProducts3){
-    oddDuckProducts2=getRandomOddDuckProductsIndex();
-  }
-  
+  console.log("get three random duck products")
+  let currentSet=[];
+  for (let i = 0; i < 3; i++) {
+    //get random index for each
+    let index = getRandomOddDuckProductsIndex();
+    while (previousSet.includes(index) || currentSet.includes(index)){
+      index=getRandomOddDuckProductsIndex();
+    }    
+      currentSet.push(index);
+  } //end for
+  //update previous for next loop
+  previousSet=currentSet
 
 //set the image values
+console.log(currentSet);
+image1.src = allOddDuckProductsArray[currentSet[0]].src;
+image1.alt = allOddDuckProductsArray[currentSet[0]].name;
+image2.src = allOddDuckProductsArray[currentSet[1]].src;
+image2.alt = allOddDuckProductsArray[currentSet[1]].name;
+image3.src = allOddDuckProductsArray[currentSet[2]].src;
+image3.alt = allOddDuckProductsArray[currentSet[2]].name;
 
-  image1.src = allOddDuckProductsArray[oddDuckProducts1].src;
-  image1.alt = allOddDuckProductsArray[oddDuckProducts1].name;
-  image2.src = allOddDuckProductsArray[oddDuckProducts2].src;
-  image2.alt = allOddDuckProductsArray[oddDuckProducts2].name;
-  image3.src = allOddDuckProductsArray[oddDuckProducts3].src;
-  image3.alt = allOddDuckProductsArray[oddDuckProducts3].name;
 
 // increment the view counts 
-allOddDuckProductsArray [oddDuckProducts1].views++;
-allOddDuckProductsArray [oddDuckProducts2].views++;
-allOddDuckProductsArray [oddDuckProducts3].views++;
+allOddDuckProductsArray [currentSet[0]].views++;
+allOddDuckProductsArray [currentSet[1]].views++;
+allOddDuckProductsArray [currentSet[2]].views++;
 }
 
 /**
@@ -116,16 +121,13 @@ function initialize() {
   render();
 }
 
-/**
- * Handles the clicking of the duck products
- */
-
 function handleOddDuckProductsClick(evt) {
   //test to see if we have clicked an image 
   if(evt.target === oddDuckProductsContainer){
     alert("Please click on an image");
   }
   click++;
+  console.log(`in handleOddDuckProductsClick() click; ${click}`)
   //we don't know which random duck product was clicked, so loop through them to see if any match the event target
 
   let clickOddDuckProducts= evt.target.alt;
@@ -137,6 +139,7 @@ function handleOddDuckProductsClick(evt) {
   }
   //see if we have made it to the maximum number of clicks
   if(click === maxClicksAllowed){
+    console.log(`click=maxClicks`);
     //remove the event listener
     oddDuckProductsContainer.removeEventListener("click", handleOddDuckProductsClick);
     //enable the display button
