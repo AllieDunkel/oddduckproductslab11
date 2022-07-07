@@ -17,6 +17,33 @@ let previousSet = [];
 let currentSet= [];
 let oddDuckProducts;
 
+
+
+const oddDuckProductsArray = [ 'bag.jpg',
+  'banana.jpg',
+  'bathroom.jpg',
+  'boots.jpg',
+  'breakfast.jpg',
+  'bubblegum.jpg',
+  'chair.jpg',
+  'dog-duck.jpg',
+  'dragon.jpg',
+  'pen.jpg',
+  'pet-sweep.jpg',
+  'scissors.jpg',
+  'shark.jpg',
+  'sweep.png',
+  'tauntaun.jpg',
+  'unicorn.jpg',
+  'water-can.jpg',
+  'wine-glass.jpg',];
+const str = 'banana.jpg';
+if (oddDuckProductsArray.indexOf(str) === -1) {
+  oddDuckProductsArray.push(str);
+}
+console.log(oddDuckProductsArray);
+
+
 /**
  * odd duck products Objects (data/ model objects
  */
@@ -88,7 +115,7 @@ function renderChart(){
   let oddDuckProductsClicks=[];
   let oddDuckProductsViews=[];
   for (let i =0; i < allOddDuckProductsArray. length; i++){
-    oddDuckProductsNames.push(allOddDuckProductsArray[i].names);
+    oddDuckProductsNames.push(allOddDuckProductsArray[i].name);
     oddDuckProductsClicks.push(allOddDuckProductsArray[i].clicks);
     oddDuckProductsViews.push(allOddDuckProductsArray[i].views);
   }
@@ -102,14 +129,14 @@ function renderChart(){
       {
         label:'Clicks',
         data: oddDuckProductsClicks,
-        backgroundColor:['rgba(255,99,132,0.5)'],
+        backgroundColor:['rgba(255,99,132,0.2)'],
         borderColor:['rgb(255,99,132)'],
         borderWidth:1,
       },
       {
         label:'Views',
         data: oddDuckProductsViews,
-        backgroundColor:['rgba(255,99,132,0.5)'],
+        backgroundColor:['rgba(255,99,122,0.2)'],
         borderColor:['rgb(255,99,132)'],
         borderWidth:1,
 
